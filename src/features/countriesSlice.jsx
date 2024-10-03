@@ -5,7 +5,7 @@ import BASE_URL from '../constants/baseURL';
 export const fetchCountries = createAsyncThunk('countries/fetchCountries', async () => {  
     const response = await fetch(`${BASE_URL}/all`);  
     const data = await response.json();
-    console.log(data); // Tambahkan ini untuk melihat data yang diterima  
+    console.log(data); 
     return data.map(country => ({  
         name: country.name.common,  
         population: country.population,  

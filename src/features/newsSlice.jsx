@@ -9,8 +9,8 @@ export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
     }  
 
     const data = await response.json();  
-    console.log(data); // Memeriksa data yang diterima dari API  
-    return data.response.docs; // Mengembalikan daftar artikel dari data.response.docs  
+    console.log(data); 
+    return data.response.docs; 
 });  
 
 const newsSlice = createSlice({  

@@ -2,13 +2,13 @@
     // src/components/formatPopulation.jsx  
     const formatPopulation = (population) => {  
         if (population >= 1000000000) {  
-            return `${(population / 1000000000).toFixed(1)} Miliar`; // Format ke miliar  
+            return `${(population / 1000000000).toFixed(1)} Miliyar`; 
         } else if (population >= 1000000) {  
-            return `${(population / 1000000).toFixed(1)} Juta`; // Format ke juta  
+            return `${(population / 1000000).toFixed(1)} Juta`; 
         } else if (population >= 1000) {  
-            return `${(population / 1000).toFixed(1)} Ribu`; // Format ke ribu  
+            return `${(population / 1000).toFixed(1)} Ribu`; 
         }  
-        return population; // Kembalikan nilai asli jika kurang dari 1000  
+        return population; 
     };  
 
     export default formatPopulation;

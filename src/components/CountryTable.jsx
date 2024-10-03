@@ -7,13 +7,13 @@ const CountryTable = ({ countries }) => {
     const [currentPage, setCurrentPage] = useState(1);  
     const countriesPerPage = 15;  
 
-    // Mengurutkan negara berdasarkan populasi (dari terbesar ke terkecil)  
+
     const sortedCountries = [...countries].sort((a, b) => b.population - a.population);  
 
-    // Menghitung total halaman  
+
     const totalPages = Math.ceil(sortedCountries.length / countriesPerPage);  
 
-    // Menentukan indeks awal dan akhir untuk negara yang ditampilkan  
+
     const indexOfLastCountry = currentPage * countriesPerPage;  
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;  
     const currentCountries = sortedCountries.slice(indexOfFirstCountry, indexOfLastCountry);  
@@ -61,7 +61,7 @@ const CountryTable = ({ countries }) => {
     );  
 };  
 
-// Menambahkan validasi props  
+
 CountryTable.propTypes = {  
     countries: PropTypes.arrayOf(  
         PropTypes.shape({  
