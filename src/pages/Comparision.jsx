@@ -1,9 +1,8 @@
 // src/pages/Comparision.jsx  
-import React, { useState, useEffect } from 'react';  
+import { useState, useEffect } from 'react';  
 import { useDispatch, useSelector } from 'react-redux';  
 import { fetchCountries } from '../features/comparisionSlice';  
 import BASE_URL from '../constants/baseURL';  
-
 
 export default function Comparision() {  
     const dispatch = useDispatch();  
@@ -13,12 +12,17 @@ export default function Comparision() {
     const [comparisonData, setComparisonData] = useState(null);  
     const [filteredCountries1, setFilteredCountries1] = useState([]);  
     const [filteredCountries2, setFilteredCountries2] = useState([]);  
+    const [alertMessage, setAlertMessage] = useState(''); // State untuk alert  
 
     useEffect(() => {  
         dispatch(fetchCountries());  
     }, [dispatch]);  
 
     const handleCompare = async () => {  
+        if (country1.toLowerCase() === country2.toLowerCase()) {  
+            setAlertMessage("Silakan pilih dua negara yang berbeda untuk perbandingan."); // Set alert message  
+            return;  
+        }  
         const countryData = await Promise.all([  
             fetch(`${BASE_URL}/name/${country1}`),  
             fetch(`${BASE_URL}/name/${country2}`)  
@@ -33,7 +37,6 @@ export default function Comparision() {
         setCountry1(value);  
         if (value) {  
             const filtered = countries.filter(country => country.name.common.toLowerCase().startsWith(value.toLowerCase()));  
-            console.log("Filtered Countries 1:", filtered); 
             setFilteredCountries1(filtered);  
         } else {  
             setFilteredCountries1([]);  
@@ -45,7 +48,6 @@ export default function Comparision() {
         setCountry2(value);  
         if (value) {  
             const filtered = countries.filter(country => country.name.common.toLowerCase().startsWith(value.toLowerCase()));  
-            console.log("Filtered Countries 2:", filtered)
             setFilteredCountries2(filtered);  
         } else {  
             setFilteredCountries2([]);  
@@ -72,15 +74,38 @@ export default function Comparision() {
         setFilteredCountries2([]);  
     };  
 
+    const handleKeyPress = (e) => {  
+        const char = String.fromCharCode(e.which);  
+        if (!/^[a-zA-Z\s]*$/.test(char)) {  
+            e.preventDefault();   
+        }  
+    };  
+
     return (  
         <div className="container mx-auto p-4">  
             <h1 className="text-3xl font-bold text-center mb-6">Country Comparison</h1>  
+
+            {/* Alert Modern */}  
+            {alertMessage && (  
+                <div className="alert alert-error shadow-lg mb-4">  
+                    <div>  
+                        <span>{alertMessage}</span>  
+                    </div>  
+                    <div className="flex-none">  
+                        <button className="btn btn-sm btn-circle btn-ghost" onClick={() => setAlertMessage('')}>  
+                            ✕  
+                        </button>  
+                    </div>  
+                </div>  
+            )}  
+
             <div className="flex justify-center mb-4">  
                 <div className="relative w-1/3">  
                     <input  
                         type="text"  
                         placeholder="Country 1"  
                         value={country1}  
+                        onKeyPress={handleKeyPress}   
                         onChange={handleSearch1}  
                         className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"  
                     />  
@@ -104,6 +129,7 @@ export default function Comparision() {
                         type="text"  
                         placeholder="Country 2"  
                         value={country2}  
+                        onKeyPress={handleKeyPress}   
                         onChange={handleSearch2}  
                         className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"  
                     />  

@@ -1,5 +1,5 @@
 // src/pages/Home.jsx  
-import React, { useEffect } from 'react';  
+import { useEffect } from 'react';  
 import { useDispatch, useSelector } from 'react-redux';  
 import { fetchCountries } from '../features/countriesSlice';  
 import formatPopulation from '../components/formatPopulation';  
@@ -29,7 +29,7 @@ export default function Home() {
                 <p>Populasi: {formatPopulation(topCountry.population)}</p>  
                 <p>Kode (CCA2): {topCountry.cca2}</p>  
             </div>  
-            <h2 className="text-xl font-semibold mb-2">Semua Negara:</h2>  
+            <h2 className="text-xl font-semibold mb-2">Tabel Populasi Semua Negara:</h2>  
             <CountryTable countries={countries} />
         </div>  
     );  

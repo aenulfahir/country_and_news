@@ -1,5 +1,5 @@
 // src/pages/News.jsx  
-import React, { useEffect } from 'react';  
+import  { useEffect } from 'react';  
 import { useDispatch, useSelector } from 'react-redux';  
 import { fetchNews } from '../features/newsSlice';  
 
@@ -11,7 +11,11 @@ export default function News() {
         dispatch(fetchNews());  
     }, [dispatch]);  
 
-    if (loading) return <div className="text-center">Loading...</div>;  
+    if (loading) return (  
+        <div className="flex items-center justify-center h-screen">  
+            <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-black-500 border-solid"></div>  
+        </div>  
+    );
     if (error) return <div className="text-red-500 text-center">Error: {error}</div>;  
  
     const displayedArticles = Array.isArray(articles) ? articles.slice(0, 10) : [];  

@@ -1,5 +1,5 @@
 // src/components/CountryTable.jsx  
-import React, { useState } from 'react';  
+import { useState } from 'react';  
 import PropTypes from 'prop-types';  
 import formatPopulation from './formatPopulation';  
 
@@ -7,13 +7,11 @@ const CountryTable = ({ countries }) => {
     const [currentPage, setCurrentPage] = useState(1);  
     const countriesPerPage = 15;  
 
-
     const sortedCountries = [...countries].sort((a, b) => b.population - a.population);  
-
 
     const totalPages = Math.ceil(sortedCountries.length / countriesPerPage);  
 
-
+    //
     const indexOfLastCountry = currentPage * countriesPerPage;  
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;  
     const currentCountries = sortedCountries.slice(indexOfFirstCountry, indexOfLastCountry);  
