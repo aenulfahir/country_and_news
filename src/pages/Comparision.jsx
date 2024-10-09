@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";  
 import { fetchCountries } from "../features/comparisionSlice";  
 import BASE_URL from "../constants/baseURL";  
+import formatPopulation from "../components/formatPopulation"; // Import the formatPopulation function  
 
 export default function Comparision() {  
   const dispatch = useDispatch();  
@@ -77,13 +78,13 @@ export default function Comparision() {
   const selectCountry1 = (country) => {  
     setCountry1(country.name.common);  
     setFilteredCountries1([]);  
-    setAlertMessage(""); // Clear alert message when a country is selected  
+    setAlertMessage("");  
   };  
 
   const selectCountry2 = (country) => {  
     setCountry2(country.name.common);  
     setFilteredCountries2([]);  
-    setAlertMessage(""); // Clear alert message when a country is selected  
+    setAlertMessage("");  
   };  
 
   const handleKeyPress = (e) => {  
@@ -101,6 +102,10 @@ export default function Comparision() {
     const population2 = data2[0].population;  
     const area1 = data1[0].area;  
     const area2 = data2[0].area;  
+    const region1 = data1[0].region;  
+    const region2 = data2[0].region;  
+    const currency1 = Object.values(data1[0].currencies)[0]; // Get the first currency  
+    const currency2 = Object.values(data2[0].currencies)[0]; // Get the first currency  
 
     const isLargerPopulation1 = population1 > population2;  
     const isLargerArea1 = area1 > area2;  
@@ -115,16 +120,16 @@ export default function Comparision() {
                         {isLargerPopulation1 ? (  
                             <>  
                                 <strong>{data1[0].name.common}</strong> memiliki populasi yang lebih besar yaitu{" "}  
-                                <span className="text-green-500">{population1.toLocaleString()}</span> dibandingkan dengan{" "}  
+                                <span className="text-green-500">{formatPopulation(population1)}</span> dibandingkan dengan{" "}  
                                 <strong>{data2[0].name.common}</strong> yang memiliki populasi{" "}  
-                                <span className="text-red-500">{population2.toLocaleString()}</span>.  
+                                <span className="text-red-500">{formatPopulation(population2)}</span>.  
                             </>  
                         ) : (  
                             <>  
                                 <strong>{data2[0].name.common}</strong> memiliki populasi yang lebih besar yaitu{" "}  
-                                <span className="text-green-500">{population2.toLocaleString()}</span> dibandingkan dengan{" "}  
+                                <span className="text-green-500">{formatPopulation(population2)}</span> dibandingkan dengan{" "}  
                                 <strong>{data1[0].name.common}</strong> yang memiliki populasi{" "}  
-                                <span className="text-red-500">{population1.toLocaleString()}</span>.  
+                                <span className="text-red-500">{formatPopulation(population1)}</span>.  
                             </>  
                         )}  
                     </p>  
@@ -149,10 +154,24 @@ export default function Comparision() {
                         )}  
                     </p>  
                 </div>  
+                <div>  
+                    <strong>Region:</strong>  
+                    <p>  
+                        <strong>{data1[0].name.common}</strong> berada di region <strong>{region1}</strong>, sedangkan{" "}  
+                        <strong>{data2[0].name.common}</strong> berada di region <strong>{region2}</strong>.  
+                    </p>  
+                </div>  
+                <div>  
+                    <strong>Mata Uang:</strong>  
+                    <p>  
+                        <strong>{data1[0].name.common}</strong> menggunakan mata uang <strong>{currency1.name}</strong> dengan simbol <strong>{currency1.symbol}</strong>, sedangkan{" "}  
+                        <strong>{data2[0].name.common}</strong> menggunakan mata uang <strong>{currency2.name}</strong> dengan simbol <strong>{currency2.symbol}</strong>.  
+                    </p>  
+                </div>  
             </div>  
         </div>  
     );  
-};
+};  
 
   return (  
     <div className="container mx-auto p-4">  
@@ -201,18 +220,18 @@ export default function Comparision() {
             value={country1}  
             onKeyPress={handleKeyPress}  
             onChange={handleSearch1}  
-            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"  
+            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"  
           />  
           {country1 && (  
             <span  
               onClick={clearInput1}  
-              className="absolute right-2 top-2 cursor-pointer text-gray-500"  
+              className="absolute right-2 top-2 cursor-pointer text-gray-500 text-white"  
             >  
               &times;  
             </span>  
           )}  
           {filteredCountries1.length > 0 && (  
-            <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg">  
+            <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg text-black">  
               {filteredCountries1.map((country) => (  
                 <li  
                   key={country.cca2}  
@@ -232,7 +251,7 @@ export default function Comparision() {
             value={country2}  
             onKeyPress={handleKeyPress}  
             onChange={handleSearch2}  
-            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"  
+            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"  
           />  
           {country2 && (  
             <span  
@@ -243,7 +262,7 @@ export default function Comparision() {
             </span>  
           )}  
           {filteredCountries2.length > 0 && (  
-            <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg">  
+            <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded-lg shadow-lg text-black">  
               {filteredCountries2.map((country) => (  
                 <li  
                   key={country.cca2}  
@@ -300,7 +319,7 @@ export default function Comparision() {
                           : "text-gray-300"  
                       } text-right`}  
                     >  
-                      {country[0].population.toLocaleString()}  
+                      {formatPopulation(country[0].population)}  
                     </span>  
                   </div>  
                   <div className="flex justify-between mb-2">  
@@ -324,9 +343,9 @@ export default function Comparision() {
                     </span>  
                   </div>  
                   <div className="flex justify-between mb-2">  
-                    <strong>Code (CCA2):</strong>  
+                    <strong>Mata Uang:</strong>  
                     <span className="text-gray-300 text-right">  
-                      {country[0].cca2}  
+                      {Object.values(country[0].currencies)[0].name} ({Object.values(country[0].currencies)[0].symbol})  
                     </span>  
                   </div>  
                 </div>  

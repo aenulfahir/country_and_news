@@ -30,23 +30,23 @@ const CountryTable = () => {
             <table className="min-w-full border border-gray-300 bg-white shadow-lg rounded-lg">  
                 <thead className="bg-gray-200">  
                     <tr>  
-                        <th className="border border-gray-300 p-2 text-left">No</th>  
-                        <th className="border border-gray-300 p-2 text-left">Flag</th>  
-                        <th className="border border-gray-300 p-2 text-left">Country</th>  
-                        <th className="border border-gray-300 p-2 text-left">Code (CCA2)</th>  
-                        <th className="border border-gray-300 p-2 text-left">Population</th>  
+                        <th className="border border-gray-300 p-2 text-left text-black">No</th>  
+                        <th className="border border-gray-300 p-2 text-left text-black">Flag</th>  
+                        <th className="border border-gray-300 p-2 text-left text-black">Country</th>  
+                        <th className="border border-gray-300 p-2 text-left text-black">Code (CCA2)</th>  
+                        <th className="border border-gray-300 p-2 text-left text-black">Population</th>  
                     </tr>  
                 </thead>  
                 <tbody>  
                     {currentCountries.map((country, index) => (  
                         <tr key={country.cca2} className="hover:bg-gray-100 transition duration-200">  
-                            <td className="border border-gray-300 p-2">{index + 1 + indexOfFirstCountry}</td>  
-                            <td className="border border-gray-300 p-2">  
+                            <td className="border border-gray-300 p-2 text-black">{index + 1 + indexOfFirstCountry}</td>  
+                            <td className="border border-gray-300 p-2 ">  
                                 <img src={country.flags.svg} alt={`${country.name.common} flag`} className="w-10 h-6" /> {/* Ukuran bendera disesuaikan */}  
                             </td>  
-                            <td className="border border-gray-300 p-2">{country.name.common}</td>  
-                            <td className="border border-gray-300 p-2">{country.cca2}</td>  
-                            <td className="border border-gray-300 p-2">{formatPopulation(country.population)}</td>  
+                            <td className="border border-gray-300 p-2 text-black">{country.name.common}</td>  
+                            <td className="border border-gray-300 p-2 text-black">{country.cca2}</td>  
+                            <td className="border border-gray-300 p-2 text-black">{formatPopulation(country.population)}</td>  
                         </tr>  
                     ))}  
                 </tbody>  
