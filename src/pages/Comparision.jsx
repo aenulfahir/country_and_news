@@ -220,7 +220,7 @@ export default function Comparision() {
             value={country1}  
             onKeyPress={handleKeyPress}  
             onChange={handleSearch1}  
-            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"  
+            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"  
           />  
           {country1 && (  
             <span  
@@ -251,7 +251,7 @@ export default function Comparision() {
             value={country2}  
             onKeyPress={handleKeyPress}  
             onChange={handleSearch2}  
-            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"  
+            className="border rounded-lg p-2 w-full pr-8 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"  
           />  
           {country2 && (  
             <span  
