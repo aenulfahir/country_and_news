@@ -12,15 +12,19 @@ export default function Comparision() {
     const [comparisonData, setComparisonData] = useState(null);  
     const [filteredCountries1, setFilteredCountries1] = useState([]);  
     const [filteredCountries2, setFilteredCountries2] = useState([]);  
-    const [alertMessage, setAlertMessage] = useState(''); // State untuk alert  
+    const [alertMessage, setAlertMessage] = useState(''); 
 
     useEffect(() => {  
         dispatch(fetchCountries());  
     }, [dispatch]);  
 
     const handleCompare = async () => {  
+        if (!country1 && !country2) {  
+            setAlertMessage("Belum memilih negara."); 
+            return;  
+        }  
         if (country1.toLowerCase() === country2.toLowerCase()) {  
-            setAlertMessage("Silakan pilih dua negara yang berbeda untuk perbandingan."); // Set alert message  
+            setAlertMessage("Silakan pilih dua negara yang berbeda untuk perbandingan."); 
             return;  
         }  
         const countryData = await Promise.all([  
@@ -67,11 +71,13 @@ export default function Comparision() {
     const selectCountry1 = (country) => {  
         setCountry1(country.name.common);  
         setFilteredCountries1([]);  
+        setAlertMessage(''); // Clear alert message when a country is selected  
     };  
 
     const selectCountry2 = (country) => {  
         setCountry2(country.name.common);  
         setFilteredCountries2([]);  
+        setAlertMessage(''); // Clear alert message when a country is selected  
     };  
 
     const handleKeyPress = (e) => {  
@@ -84,21 +90,25 @@ export default function Comparision() {
     return (  
         <div className="container mx-auto p-4">  
             <h1 className="text-3xl font-bold text-center mb-6">Country Comparison</h1>  
-
-            {/* Alert Modern */}  
             {alertMessage && (  
-                <div className="alert alert-error shadow-lg mb-4">  
-                    <div>  
+                <div className={`alert ${alertMessage.includes("Belum memilih negara") ? "bg-yellow-100 border-yellow-400 text-yellow-700" : "bg-red-100 border-red-400 text-red-700"} border-l-4 p-4 mb-4 rounded-lg`} role="alert">  
+                    <div className="flex items-center">  
+                        <svg  
+                            xmlns="http://www.w3.org/2000/svg"  
+                            className="h-5 w-5 mr-2"  
+                            fill="none"  
+                            viewBox="0 0 24 24"  
+                            stroke="currentColor"  
+                        >  
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />  
+                        </svg>  
                         <span>{alertMessage}</span>  
-                    </div>  
-                    <div className="flex-none">  
-                        <button className="btn btn-sm btn-circle btn-ghost" onClick={() => setAlertMessage('')}>  
-                            ✕  
+                        <button className="ml-auto text-gray-500 hover:text-gray-700" onClick={() => setAlertMessage('')}>  
+                            &times;  
                         </button>  
                     </div>  
                 </div>  
-            )}  
-
+            )} 
             <div className="flex justify-center mb-4">  
                 <div className="relative w-1/3">  
                     <input  
