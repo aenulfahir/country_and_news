@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';  
 import { fetchCountries } from '../features/countriesSlice';  
 import formatPopulation from '../components/formatPopulation';  
-import CountryTable from '../components/CountryTable';
+import CountryTable from '../components/CountryTable';  
 
 export default function Home() {  
     const dispatch = useDispatch();  
@@ -22,15 +22,17 @@ export default function Home() {
 
     return (  
         <div className="container mx-auto p-4">  
-            <h1 className="text-2xl font-bold mb-4">Countries Data</h1>  
-            <h2 className="text-xl font-semibold mb-2">Negara dengan Populasi Terbesar:</h2>  
+            <h1 className="text-2xl font-bold mb-4 text-center">Countries Data</h1>  
+            <h2 className="text-xl font-semibold mb-2 text-center">Negara dengan Populasi Terbesar:</h2>  
             <div className="mb-4 p-4 border rounded-lg shadow-md bg-gray-100">  
                 <p className="font-semibold">Nama: {topCountry.name}</p>  
                 <p>Populasi: {formatPopulation(topCountry.population)}</p>  
                 <p>Kode (CCA2): {topCountry.cca2}</p>  
             </div>  
-            <h2 className="text-xl font-semibold mb-2">Tabel Populasi Semua Negara:</h2>  
-            <CountryTable countries={countries} />
+            <h2 className="text-xl font-semibold mb-2 text-center">Tabel Populasi Semua Negara:</h2>  
+            <div className="overflow-x-auto"> {/* Menambahkan overflow-x-auto untuk tabel responsif */}  
+                <CountryTable countries={countries} />  
+            </div>  
         </div>  
     );  
 }

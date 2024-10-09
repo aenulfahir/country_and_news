@@ -42,7 +42,7 @@ const CountryTable = () => {
                         <tr key={country.cca2} className="hover:bg-gray-100 transition duration-200">  
                             <td className="border border-gray-300 p-2">{index + 1 + indexOfFirstCountry}</td>  
                             <td className="border border-gray-300 p-2">  
-                                <img src={country.flags.svg} alt={`${country.name.common} flag`} className="w-6 h-4" />  
+                                <img src={country.flags.svg} alt={`${country.name.common} flag`} className="w-10 h-6" /> {/* Ukuran bendera disesuaikan */}  
                             </td>  
                             <td className="border border-gray-300 p-2">{country.name.common}</td>  
                             <td className="border border-gray-300 p-2">{country.cca2}</td>  
@@ -51,7 +51,7 @@ const CountryTable = () => {
                     ))}  
                 </tbody>  
             </table>  
-            <div className="flex justify-between mt-4">  
+            <div className="flex flex-col md:flex-row justify-between mt-4">  
                 <button   
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}   
                     disabled={currentPage === 1}   
@@ -59,7 +59,7 @@ const CountryTable = () => {
                 >  
                     Previous  
                 </button>  
-                <span>Page {currentPage} of {totalPages}</span>  
+                <span className="mt-2 md:mt-0">Page {currentPage} of {totalPages}</span>  
                 <button   
                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}   
                     disabled={currentPage === totalPages}   
