@@ -93,6 +93,67 @@ export default function Comparision() {
     }  
   };  
 
+  const renderConclusion = () => {  
+    if (!comparisonData) return null;  
+
+    const [data1, data2] = comparisonData;  
+    const population1 = data1[0].population;  
+    const population2 = data2[0].population;  
+    const area1 = data1[0].area;  
+    const area2 = data2[0].area;  
+
+    const isLargerPopulation1 = population1 > population2;  
+    const isLargerArea1 = area1 > area2;  
+
+    return (  
+        <div className="bg-gray-800 text-white mt-4 p-6 rounded-lg shadow-lg">  
+            <h3 className="text-2xl font-bold mb-4">Kesimpulan Perbandingan</h3>  
+            <div className="space-y-4">  
+                <div>  
+                    <strong>Populasi:</strong>  
+                    <p>  
+                        {isLargerPopulation1 ? (  
+                            <>  
+                                <strong>{data1[0].name.common}</strong> memiliki populasi yang lebih besar yaitu{" "}  
+                                <span className="text-green-500">{population1.toLocaleString()}</span> dibandingkan dengan{" "}  
+                                <strong>{data2[0].name.common}</strong> yang memiliki populasi{" "}  
+                                <span className="text-red-500">{population2.toLocaleString()}</span>.  
+                            </>  
+                        ) : (  
+                            <>  
+                                <strong>{data2[0].name.common}</strong> memiliki populasi yang lebih besar yaitu{" "}  
+                                <span className="text-green-500">{population2.toLocaleString()}</span> dibandingkan dengan{" "}  
+                                <strong>{data1[0].name.common}</strong> yang memiliki populasi{" "}  
+                                <span className="text-red-500">{population1.toLocaleString()}</span>.  
+                            </>  
+                        )}  
+                    </p>  
+                </div>  
+                <div>  
+                    <strong>Luas Wilayah:</strong>  
+                    <p>  
+                        {isLargerArea1 ? (  
+                            <>  
+                                <strong>{data1[0].name.common}</strong> memiliki luas wilayah yang lebih besar yaitu{" "}  
+                                <span className="text-green-500">{area1.toLocaleString()} km²</span> dibandingkan dengan{" "}  
+                                <strong>{data2[0].name.common}</strong> yang memiliki luas{" "}  
+                                <span className="text-red-500">{area2.toLocaleString()} km²</span>.  
+                            </>  
+                        ) : (  
+                            <>  
+                                <strong>{data2[0].name.common}</strong> memiliki luas wilayah yang lebih besar yaitu{" "}  
+                                <span className="text-green-500">{area2.toLocaleString()} km²</span> dibandingkan dengan{" "}  
+                                <strong>{data1[0].name.common}</strong> yang memiliki luas{" "}  
+                                <span className="text-red-500">{area1.toLocaleString()} km²</span>.  
+                            </>  
+                        )}  
+                    </p>  
+                </div>  
+            </div>  
+        </div>  
+    );  
+};
+
   return (  
     <div className="container mx-auto p-4">  
       <h1 className="text-3xl font-bold text-center mb-6">  
@@ -293,6 +354,7 @@ export default function Comparision() {
           })}  
         </div>  
       )}  
+      {renderConclusion()}  
     </div>  
   );  
 }
